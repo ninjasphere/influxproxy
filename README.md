@@ -36,3 +36,21 @@ The port that must be exposed to trusted clients of the container.
 #LINKS or HOSTS
 
 A --link or --add-host parameter must be used to map an IP address to ${INFLUX_HOST}
+
+#EXAMPLES
+
+Start an unauthenticated proxy to a secured influx instance ('secureinflux') using the credentials 'query/querysecret'. Clients from trusted networks should connect to port 18086 of the docker host.
+
+```
+docker run \
+	-d \
+	-p 18086:18086 \
+	--add-host influx:secureinflux \
+	-e INFLUX_USER=query \
+	-e INFLUX_PASSWORD=querysecret \
+	ninjasphere/influxproxy
+```
+
+#SECURITY
+
+The docker administrator is responsible (via unspecified mechanisms) for ensuring that access to the exposed port (18086) of containers created from the ninjasphere/influxproxy image is restricted to trusted source IP addresses.
