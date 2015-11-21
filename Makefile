@@ -12,6 +12,6 @@ push-tag: image tag
 	docker push $(IMAGE):$(SHA1)
 	@echo pushed $(IMAGE):$(SHA1)
 
-tag:
+tag: image
 	docker tag -f $(IMAGE) $(IMAGE):$(SHA1)
 
