@@ -1,6 +1,9 @@
 SHA1 := $(shell git rev-parse --short HEAD | tr -d "\n")
 IMAGE=ninjasphere/influxproxy
 
+tag: image
+	docker tag -f $(IMAGE) $(IMAGE):$(SHA1)
+
 image:
 	docker build -t "$(IMAGE)" .
 	@echo $(IMAGE)
@@ -11,7 +14,4 @@ push:
 push-tag: image tag
 	docker push $(IMAGE):$(SHA1)
 	@echo pushed $(IMAGE):$(SHA1)
-
-tag: image
-	docker tag -f $(IMAGE) $(IMAGE):$(SHA1)
 
